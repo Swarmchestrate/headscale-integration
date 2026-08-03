@@ -4,7 +4,7 @@ set -e
 
 DOMAIN="https://headscale-test.swarmchestrate.sztaki.hu"
 
-API_KEY="4ooBucA.GWYiRhrUrkOEE1f5Q8bRTastQRi0agIH"
+API_KEY="YOUR_API_KEY_HERE"
 
 echo "Enter username:"
 read USERNAME
