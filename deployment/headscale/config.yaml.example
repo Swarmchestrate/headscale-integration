@@ -1,0 +1,38 @@
+# Example configuration for the existing Headscale deployment.
+# Do not copy over the live server configuration without reviewing it.
+
+server_url: "https://headscale-test.swarmchestrate.sztaki.hu:443"
+listen_addr: "0.0.0.0:443"
+
+database:
+  type: sqlite
+  sqlite:
+    path: /var/lib/headscale/db.sqlite
+
+noise:
+  private_key_path: /var/lib/headscale/noise_private.key
+
+tls_letsencrypt_hostname: "headscale-test.swarmchestrate.sztaki.hu"
+acme_email: "REPLACE_WITH_YOUR_EMAIL"
+tls_letsencrypt_cache_dir: /var/lib/headscale/cache
+tls_letsencrypt_challenge_type: HTTP-01
+tls_letsencrypt_listen: ":80"
+
+prefixes:
+  v4: "100.64.0.0/10"
+  v6: "fd7a:115c:a1e0::/48"
+
+dns:
+  magic_dns: false
+  override_local_dns: false
+  nameservers:
+    global: []
+
+derp:
+  auto_update_enabled: true
+  urls:
+    - https://controlplane.tailscale.com/derpmap/default
+
+policy:
+  mode: file
+  path: /etc/headscale/acl.hujson
