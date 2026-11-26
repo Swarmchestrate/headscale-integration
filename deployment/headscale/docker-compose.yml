@@ -1,0 +1,28 @@
+services:
+  headscale:
+    image: ${HEADSCALE_IMAGE:-headscale/headscale@sha256:cd37b30018575fd62f18419138d4e526bcf894e1d4e1aa1b08699cec1891ac23}
+    container_name: headscale
+
+    command: serve
+
+    restart: unless-stopped
+
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+
+    volumes:
+      # Preserve existing Headscale configuration and ACL policy
+      - /etc/headscale:/etc/headscale:ro
+
+      # Preserve database, private keys and Let's Encrypt certificates
+      - /var/lib/headscale:/var/lib/headscale
+
+    healthcheck:
+      test: ["CMD", "headscale", "health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    stop_grace_period: 30s
